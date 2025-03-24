@@ -23,7 +23,7 @@ There are three ways to deploy this service:
 
 2. Download the sample docker-compose file:
    ```bash
-   curl -O https://raw.githubusercontent.com/bmj2728/ha-smart-alarm/main/docker-compose-prebuild.yml -o docker-compose.yml
+   curl https://raw.githubusercontent.com/bmj2728/ha-smart-alarm/main/docker-compose-prebuild.yml -o docker-compose.yml
    ```
 
 3. Edit the docker-compose.yml file to configure your environment variables:

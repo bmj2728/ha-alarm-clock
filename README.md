@@ -65,23 +65,23 @@ There are three ways to deploy this service:
 
 ## Environment Variables
 
-| Variable | Description | Default | Example |
-|----------|-------------|---------|---------|
-| `HA_URL` | URL to your Home Assistant instance | `http://homeassistant:8123` | `http://192.168.1.100:8123` |
-| `HA_TOKEN` | Long-lived access token for HA API | (Required) | `eyJhbGc...` |
-| `VOICE_PE_ENTITY` | Entity ID of your media player | `media_player.home_assistant_voice_pe` | `media_player.living_room_speaker` |
-| `PERSON_ENTITY` | Entity ID of the person to track | `person.user` | `person.your_name` |
-| `HOME_ZONE` | Zone entity ID for your home | `zone.home` | `zone.home` |
-| `GOTIFY_URL` | URL to your Gotify server (optional) | (None) | `https://gotify.example.com` |
-| `GOTIFY_TOKEN` | Gotify application token (optional) | (None) | `Az9TXMfQTT29bH-` |
-| `TIMEZONE` | Your local timezone | `America/New_York` | `Europe/London` |
-| `WEEKDAY_ALARM_TIME` | Alarm time for weekdays (Mon-Fri) | `07:00` | `06:30` |
-| `WEEKEND_ALARM_TIME` | Alarm time for weekends (Sat-Sun) | `09:00` | `08:00` |
-| `WEEKDAY_ALARM_MEDIA` | Media to play for weekday alarms | `/media/audio/wake_up.mp3` | `spotify://playlist/123456` |
-| `WEEKEND_ALARM_MEDIA` | Media to play for weekend alarms | `/media/audio/weekend_wakeup.mp3` | `spotify://playlist/654321` |
-| `MEDIA_CONTENT_TYPE` | Media content type | `music` | `playlist` |
-| `VOLUME_STEPS` | Comma-separated list of volume levels | `0.2,0.3,0.4,0.5,0.6,0.7` | `0.1,0.2,0.3,0.4` |
-| `VOLUME_STEP_DELAY` | Seconds between volume increases | `20` | `30` |
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `HA_URL` | URL to your Home Assistant instance | `http://homeassistant:8123` |
+| `HA_TOKEN` | Long-lived access token for HA API | (Required) |
+| `VOICE_PE_ENTITY` | Entity ID of your media player | `media_player.home_assistant_voice_pe` |
+| `PERSON_ENTITY` | Entity ID of the person to track | `person.user` |
+| `HOME_ZONE` | Zone entity ID for your home | `zone.home` |
+| `GOTIFY_URL` | URL to your Gotify server | (Optional) |
+| `GOTIFY_TOKEN` | Gotify application token | (Optional) |
+| `TIMEZONE` | Your local timezone | `America/New_York` |
+| `WEEKDAY_ALARM_TIME` | Alarm time for weekdays (Mon-Fri) | `07:00` |
+| `WEEKEND_ALARM_TIME` | Alarm time for weekends (Sat-Sun) | `09:00` |
+| `WEEKDAY_ALARM_MEDIA` | Media to play for weekday alarms | `/media/audio/wake_up.mp3` |
+| `WEEKEND_ALARM_MEDIA` | Media to play for weekend alarms | `/media/audio/weekend_wakeup.mp3` |
+| `MEDIA_CONTENT_TYPE` | Media content type (`music` or `playlist`) | `music` |
+| `VOLUME_STEPS` | Comma-separated list of volume levels | `0.2,0.3,0.4,0.5,0.6,0.7` |
+| `VOLUME_STEP_DELAY` | Seconds between volume increases | `20` |
 
 ## Creating a Home Assistant Long-Lived Access Token
 

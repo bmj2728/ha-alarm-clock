@@ -373,7 +373,7 @@ def health_check_server():
 # Main function
 def main():
     # Set up health check endpoint (for Docker)
-    health_check_server()
+    #health_check_server()
 
     # Schedule alarms
     set_alarms()

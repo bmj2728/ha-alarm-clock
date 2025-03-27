@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  smart-alarm:
+    build: ..
+    container_name: smart-alarm
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - HA_URL=http://homeassistant:8123
+      - HA_TOKEN=your_long_lived_access_token_here
+      - VOICE_PE_ENTITY=media_player.home_assistant_voice_pe
+      - PERSON_ENTITY=person.user
+      - HOME_ZONE=zone.home
+      - GOTIFY_URL=https://your-gotify-server/
+      - GOTIFY_TOKEN=your_gotify_app_token
+      - TIMEZONE=America/New_York
+      - WEEKDAY_ALARM_TIME=07:00
+      - WEEKEND_ALARM_TIME=09:00
+      - WEEKDAY_ALARM_MEDIA=/media/audio/wake_up.mp3
+      - WEEKEND_ALARM_MEDIA=/media/audio/weekend_wakeup.mp3
+      - MEDIA_CONTENT_TYPE=music      # Change to 'playlist' for streaming services
+      - VOLUME_STEPS=0.2,0.3,0.4,0.5,0.6,0.7
+      - VOLUME_STEP_DELAY=20
+    ports:
+      - "8080:8080"  # Expose health check endpoint

@@ -1,9 +1,9 @@
-"""
-Dockerfile for the Home Assistant Smart Alarm Clock.
-
-This Dockerfile builds a container image for the enhanced alarm clock application
-with Streamlit UI and SQLite database support.
-"""
+###
+###Dockerfile for the Home Assistant Smart Alarm Clock.
+###
+###This Dockerfile builds a container image for the enhanced alarm clock application
+###with Streamlit UI and SQLite database support.
+###
 
 FROM python:3.10-slim
 
@@ -46,14 +46,14 @@ python /app/scripts/migrate_database.py\n\
 # Start the application based on mode\n\
 if [ "$1" = "ui" ]; then\n\
   # Start Streamlit UI\n\
-  streamlit run /app/app/streamlit_ui.py --server.port=8501 --server.address=0.0.0.0\n\
+  streamlit run /app/app/streamlit_ui_integrated.py --server.port=8501 --server.address=0.0.0.0\n\
 elif [ "$1" = "service" ]; then\n\
   # Start alarm service\n\
   python -m app.main --config /config/config.yaml\n\
 else\n\
   # Default to running both\n\
   python -m app.main --config /config/config.yaml &\n\
-  streamlit run /app/app/streamlit_ui.py --server.port=8501 --server.address=0.0.0.0\n\
+  streamlit run /app/app/streamlit_ui_integrated.py --server.port=8501 --server.address=0.0.0.0\n\
 fi' > /app/entrypoint.sh
 
 RUN chmod +x /app/entrypoint.sh

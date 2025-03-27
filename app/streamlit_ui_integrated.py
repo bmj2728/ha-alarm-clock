@@ -24,6 +24,15 @@ from app.alarm_manager import AlarmManager
 from app.ui_integration import UIIntegration
 from app.utils import setup_logging, format_days_list, validate_alarm_data
 
+
+# Set page configuration
+st.set_page_config(
+    page_title="Home Assistant Smart Alarm Clock",
+    page_icon="⏰",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # Setup logging
 setup_logging('logs/streamlit_ui.log', 'INFO')
 logger = logging.getLogger('streamlit_ui')
@@ -57,14 +66,6 @@ def init_resources():
     return config, db_manager, alarm_manager, ui_integration
 
 config, db_manager, alarm_manager, ui_integration = init_resources()
-
-# Set page configuration
-st.set_page_config(
-    page_title="Home Assistant Smart Alarm Clock",
-    page_icon="⏰",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 
 # Custom CSS
 st.markdown("""

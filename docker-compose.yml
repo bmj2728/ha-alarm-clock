@@ -15,4 +15,4 @@ services:
       - ./config:/config
     environment:
       - TZ=America/New_York
-    command: ["ui"]  # Options: "ui", "service", or default (both)
+#    command: ["ui"]  # Options: "ui", "service", or default (both)

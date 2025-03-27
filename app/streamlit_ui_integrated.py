@@ -580,6 +580,12 @@ def show_add_alarm():
 def show_settings():
     """Show the settings page for configuring the application."""
     st.markdown('<div class="main-header">Settings</div>', unsafe_allow_html=True)
+
+    # Restart services to apply new settings
+    if st.button("Restart Services to Apply Settings"):
+        ui_integration.restart_alarm_service()
+        st.success("Services restarted with new settings")
+        st.rerun()
     
     # Home Assistant settings
     st.markdown('<div class="section-header">Home Assistant Connection</div>', unsafe_allow_html=True)
@@ -597,12 +603,6 @@ def show_settings():
             config.set("voice_pe_entity", voice_pe_entity)
             config.save("config.yaml")
             st.success("Home Assistant settings saved")
-            
-            # Restart services to apply new settings
-            if st.button("Restart Services to Apply Settings"):
-                ui_integration.restart_alarm_service()
-                st.success("Services restarted with new settings")
-                st.rerun()
     
     # Notification settings
     st.markdown('<div class="section-header">Notifications</div>', unsafe_allow_html=True)

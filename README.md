@@ -1,103 +1,75 @@
-# Home Assistant Smart Alarm Clock
+# Home Assistant Smart Alarm Clock - README
 
-A smart alarm clock service for Home Assistant that plays media on your Home Assistant Voice (or any media player) with gradually increasing volume. It includes features such as:
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Python](https://img.shields.io/badge/python-3.10-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io/)
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-41BDF5?style=for-the-badge&logo=home-assistant&logoColor=white)](https://www.home-assistant.io/)
 
-- Different alarm times for weekdays and weekends
-- Person presence detection (won't trigger alarm if you're not home)
-- Gradually increasing volume
-- Support for local media files or streaming services
-- Gotify notifications
-- Health check endpoint for monitoring
+A modular application for managing multiple alarms with Home Assistant integration and a user-friendly Streamlit UI.
 
-## Deployment Options
+## Features
 
-There are three ways to deploy this service:
+- **Multiple Alarms**: Create and manage multiple alarms for any day of the week
+- **Streamlit UI**: User-friendly web interface for managing alarms
+- **Flexible Scheduling**: Set alarms for specific days or day patterns (weekdays, weekends)
+- **Volume Ramping**: Gradually increase volume for gentle wake-up
+- **Presence Detection**: Skip alarms when you're not home
+- **Morning Briefing**: Get weather and calendar information after your alarm
+- **Snooze Functionality**: Snooze active alarms as needed
+- **Persistent Storage**: All alarms are stored in a database for reliability
 
-### Option 1: Using Pre-built Image (Recommended)
+## Screenshots
 
-1. Create a new directory for the project:
-   ```bash
-   mkdir -p ~/ha-smart-alarm/logs
-   cd ~/ha-smart-alarm
-   ```
+![Dashboard](docs/images/dashboard.png)
+![Alarm Detail](docs/images/alarm_detail.png)
+![Settings](docs/images/settings.png)
 
-2. Download the sample docker-compose file:
-   ```bash
-   curl https://raw.githubusercontent.com/bmj2728/ha-smart-alarm/main/docker-compose-prebuild.yml -o docker-compose.yml
-   ```
+## Quick Start
 
-3. Edit the docker-compose.yml file to configure your environment variables:
-   ```bash
-   nano docker-compose.yml
-   ```
-
-4. Start the container:
-   ```bash
-   docker compose up -d
-   ```
-
-### Option 2: Building from Source
+### Docker Installation (Recommended)
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/bmj2728/ha-smart-alarm.git
-   cd ha-smart-alarm
-   mkdir -p logs
+   git clone https://github.com/bmj2728/ha-alarm-clock.git
+   cd ha-alarm-clock
    ```
 
-2. Edit the docker-compose.yml file to configure your environment variables:
+2. Configure the application by creating a `config/config.yaml` file:
+   ```yaml
+   ha_url: http://your-home-assistant-url:8123
+   ha_token: your_long_lived_access_token
+   voice_pe_entity: media_player.your_media_player
+   person_entity: person.your_name
+   home_zone: zone.home
+   ```
+
+3. Start the application using Docker Compose:
    ```bash
-   nano docker-compose.yml
+   docker-compose up -d
    ```
 
-3. Build and start the container:
-   ```bash
-   docker compose up -d --build
-   ```
+4. Access the UI at `http://your-server-ip:8501`
 
-### Option 3: Using Docker GUI (Portainer, Synology, etc.)
+## Documentation
 
-1. Create a new stack/container in your Docker GUI
-2. Use `ghcr.io/bmj2728/ha-smart-alarm:latest` as the image
-3. Configure the environment variables as described below
-4. Map port 8080 to your desired port for health checks
-5. Create a volume mapping from a local folder to `/app/logs` in the container
+- [User Guide](docs/user_guide.md): Installation, usage, and troubleshooting
+- [Developer Guide](docs/developer_guide.md): Architecture, components, and extension
+- [Enhancement Summary](docs/enhancement_summary.md): Summary of enhancements made
 
-## Environment Variables
+## Requirements
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `HA_URL` | URL to your Home Assistant instance | `http://homeassistant:8123` |
-| `HA_TOKEN` | Long-lived access token for HA API | (Required) |
-| `VOICE_PE_ENTITY` | Entity ID of your media player | `media_player.home_assistant_voice_pe` |
-| `PERSON_ENTITY` | Entity ID of the person to track | `person.user` |
-| `HOME_ZONE` | Zone entity ID for your home | `zone.home` |
-| `GOTIFY_URL` | URL to your Gotify server | (Optional) |
-| `GOTIFY_TOKEN` | Gotify application token | (Optional) |
-| `TIMEZONE` | Your local timezone | `America/New_York` |
-| `WEEKDAY_ALARM_TIME` | Alarm time for weekdays (Mon-Fri) | `07:00` |
-| `WEEKEND_ALARM_TIME` | Alarm time for weekends (Sat-Sun) | `09:00` |
-| `WEEKDAY_ALARM_MEDIA` | Media to play for weekday alarms | `/media/audio/wake_up.mp3` |
-| `WEEKEND_ALARM_MEDIA` | Media to play for weekend alarms | `/media/audio/weekend_wakeup.mp3` |
-| `MEDIA_CONTENT_TYPE` | Media content type (`music` or `playlist`) | `music` |
-| `VOLUME_STEPS` | Comma-separated list of volume levels | `0.2,0.3,0.4,0.5,0.6,0.7` |
-| `VOLUME_STEP_DELAY` | Seconds between volume increases | `20` |
-
-## Creating a Home Assistant Long-Lived Access Token
-
-1. In your Home Assistant instance, click on your user profile (bottom left)
-2. Scroll to the bottom and click "Create Token" under Long-Lived Access Tokens
-3. Give it a name (e.g., "Smart Alarm")
-4. Copy the token and use it for the `HA_TOKEN` environment variable
-
-## Health Check
-
-The service exposes a health check endpoint on port 8080. You can use this to monitor the service's status:
-
-```
-http://your-server:8080/health
-```
+- Python 3.10+
+- Home Assistant instance
+- Media player entity in Home Assistant
+- (Optional) Docker and Docker Compose
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Home Assistant](https://www.home-assistant.io/) for the amazing home automation platform
+- [Streamlit](https://streamlit.io/) for the simple yet powerful UI framework
+- [SQLAlchemy](https://www.sqlalchemy.org/) for the ORM
+- [Schedule](https://schedule.readthedocs.io/) for the job scheduling

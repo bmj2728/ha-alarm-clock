@@ -1,3 +1,18 @@
-requests==2.28.2
-schedule==1.1.0
+"""
+Requirements file for the Home Assistant Smart Alarm Clock.
+"""
+
+# Core dependencies
+requests==2.31.0
+schedule==1.2.0
 pytz==2023.3
+sqlalchemy==2.0.23
+
+# Streamlit UI
+streamlit==1.29.0
+
+# Database
+alembic==1.12.1
+
+# Testing
+pytest==7.4.3

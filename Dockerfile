@@ -1,44 +1,64 @@
-FROM python:3.9-slim
+"""
+Dockerfile for the Home Assistant Smart Alarm Clock.
+
+This Dockerfile builds a container image for the enhanced alarm clock application
+with Streamlit UI and SQLite database support.
+"""
+
+FROM python:3.10-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
 # Install dependencies
-COPY requirements.txt /app/
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Create log directory
-RUN mkdir -p /app/logs
-
 # Copy application code
-COPY smart-alarm-service.py /app/
+COPY app/ ./app/
+COPY scripts/ ./scripts/
 
-# Expose port for health check
-EXPOSE 8080
+# Create directories for logs and database
+RUN mkdir -p logs media/audio
 
-# Set environment variables with defaults (override at runtime)
-ENV HA_URL=http://homeassistant:8123 \
-    HA_TOKEN="" \
-    VOICE_PE_ENTITY="media_player.home_assistant_voice_pe" \
-    PERSON_ENTITY="person.user" \
-    HOME_ZONE="zone.home" \
-    GOTIFY_URL="" \
-    GOTIFY_TOKEN="" \
-    TIMEZONE="America/New_York" \
-    WEEKDAY_ALARM_TIME="07:00" \
-    WEEKEND_ALARM_TIME="09:00" \
-    WEEKDAY_ALARM_MEDIA="/media/audio/wake_up.mp3" \
-    WEEKEND_ALARM_MEDIA="/media/audio/weekend_wakeup.mp3" \
-    MEDIA_CONTENT_TYPE="music" \
-    VOLUME_STEPS="0.2,0.3,0.4,0.5,0.6,0.7" \
-    VOLUME_STEP_DELAY="20"
+# Create default config file
+RUN mkdir -p config
+RUN echo "database_path: /data/alarms.db\nlog_file: /logs/alarm_service.log" > config/config.yaml
 
-# Health check
-#HEALTHCHECK --interval=1m --timeout=10s --start-period=30s --retries=3 \
-#    CMD curl -f http://localhost:8080/health || exit 1
+# Create volume mount points
+VOLUME ["/data", "/logs", "/media", "/config"]
 
-# Run the application
-CMD ["python", "-u", "smart-alarm-service.py"]
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Expose ports for Streamlit UI and health check
+EXPOSE 8501 8080
+
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+# Copy config if it doesn'\''t exist\n\
+if [ ! -f /config/config.yaml ]; then\n\
+  cp /app/config/config.yaml /config/\n\
+fi\n\
+\n\
+# Run database migration if needed\n\
+python /app/scripts/migrate_database.py\n\
+\n\
+# Start the application based on mode\n\
+if [ "$1" = "ui" ]; then\n\
+  # Start Streamlit UI\n\
+  streamlit run /app/app/streamlit_ui.py --server.port=8501 --server.address=0.0.0.0\n\
+elif [ "$1" = "service" ]; then\n\
+  # Start alarm service\n\
+  python -m app.main --config /config/config.yaml\n\
+else\n\
+  # Default to running both\n\
+  python -m app.main --config /config/config.yaml &\n\
+  streamlit run /app/app/streamlit_ui.py --server.port=8501 --server.address=0.0.0.0\n\
+fi' > /app/entrypoint.sh
+
+RUN chmod +x /app/entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# Default command (can be overridden)
+CMD ["ui"]

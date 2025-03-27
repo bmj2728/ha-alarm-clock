@@ -1,0 +1,18 @@
+2025-03-23 23:30:30,438 - smart_alarm_service - INFO - Alarms scheduled: Weekdays at 07:00, Weekends at 09:00
+2025-03-23 23:30:30,440 - smart_alarm_service - INFO - Started health check server on port 8080
+2025-03-23 23:30:30,441 - smart_alarm_service - ERROR - Failed to send Gotify notification: HTTPSConnectionPool(host='your-gotify-server', port=443): Max retries exceeded with url: //message (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7359dbb46df0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+2025-03-23 23:30:30,441 - smart_alarm_service - INFO - Smart Alarm Service started
+2025-03-23 23:33:13,330 - smart_alarm_service - INFO - Alarms scheduled: Weekdays at 07:00, Weekends at 09:00
+2025-03-23 23:33:13,333 - smart_alarm_service - ERROR - Failed to send Gotify notification: HTTPSConnectionPool(host='your-gotify-server', port=443): Max retries exceeded with url: //message (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7614eb4a9580>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+2025-03-23 23:33:13,333 - smart_alarm_service - INFO - Smart Alarm Service started
+2025-03-23 23:46:57,246 - smart_alarm_service - INFO - Alarms scheduled: Weekdays at 07:00, Weekends at 09:00
+2025-03-23 23:46:57,249 - smart_alarm_service - ERROR - Failed to send Gotify notification: HTTPSConnectionPool(host='your-gotify-server', port=443): Max retries exceeded with url: //message (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x785f12c40580>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+2025-03-23 23:46:57,249 - smart_alarm_service - INFO - Smart Alarm Service started
+2025-03-23 23:51:34,813 - smart_alarm_service - INFO - Alarms scheduled: Weekdays at 07:00, Weekends at 09:00
+2025-03-23 23:51:34,816 - smart_alarm_service - ERROR - Failed to send Gotify notification: HTTPSConnectionPool(host='your-gotify-server', port=443): Max retries exceeded with url: //message (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x77c0e578e580>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+2025-03-23 23:51:34,816 - smart_alarm_service - INFO - Smart Alarm Service started
+2025-03-24 07:00:06,166 - smart_alarm_service - ERROR - Home Assistant is not available
+2025-03-24 07:00:06,167 - smart_alarm_service - WARNING - Can't check location - Home Assistant unavailable
+2025-03-24 07:00:06,172 - smart_alarm_service - ERROR - Home Assistant is not available
+2025-03-24 07:00:06,172 - smart_alarm_service - ERROR - Cannot trigger alarm - Home Assistant unavailable
+2025-03-24 07:00:06,174 - smart_alarm_service - ERROR - Failed to send Gotify notification: HTTPSConnectionPool(host='your-gotify-server', port=443): Max retries exceeded with url: //message (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x77c0e578e700>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))

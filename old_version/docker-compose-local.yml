@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  smart-alarm:
+    build: ..
+    container_name: smart-alarm
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - HA_URL=http://192.168.68.58:8123
+      - HA_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzNTlmYzQ3YmUzOTY0YzI1YmVlODEwZDgyNjAyZDRiMyIsImlhdCI6MTc0Mjc3NDI1NCwiZXhwIjoyMDU4MTM0MjU0fQ.vVbnvegKLzDLQPmvhHExDUAr2g_lrJSGLYI2nH7p38c
+      - VOICE_PE_ENTITY=media_player.home_assistant_voice_09899b_media_player_2
+      - PERSON_ENTITY=person.brian_jipson
+      - HOME_ZONE=zone.home
+      - GOTIFY_URL=https://gotify.brianjipson.synology.me/
+      - GOTIFY_TOKEN=ASfXMXhQTT29aH-
+      - TIMEZONE=America/New_York
+      - WEEKDAY_ALARM_TIME=07:30
+      - WEEKEND_ALARM_TIME=09:00
+      - WEEKDAY_ALARM_MEDIA=spotify://playlist/3tMKMfS4DZb1ZsXHHeZ0Yk
+      - WEEKEND_ALARM_MEDIA=spotify://playlist/3tMKMfS4DZb1ZsXHHeZ0Yk
+      - MEDIA_CONTENT_TYPE=playlist      # Change to 'playlist' for streaming services
+      - VOLUME_STEPS=0.2,0.3,0.4,0.5,0.6,0.7
+      - VOLUME_STEP_DELAY=20
+    ports:
+      - "6969:8080"  # Expose health check endpoint
